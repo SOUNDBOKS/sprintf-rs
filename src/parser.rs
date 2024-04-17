@@ -48,14 +48,16 @@ pub enum NumericParam {
 /// Printf data type
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ConversionType {
-    /// `d`, `i`, or `u`
+    /// `d`, `i`
     DecInt,
     /// `o`
     OctInt,
+    /// u
+    DecUInt,
     /// `x` or `p`
-    HexIntLower,
+    HexUIntLower,
     /// `X`
-    HexIntUpper,
+    HexUIntUpper,
     /// `e`
     SciFloatLower,
     /// `E`
@@ -174,10 +176,11 @@ fn take_conversion_specifier(s: &str) -> Result<(ConversionSpecifier, &str)> {
     }
     // parse conversion type
     spec.conversion_type = match s.chars().next() {
-        Some('i') | Some('d') | Some('u') => ConversionType::DecInt,
+        Some('i') | Some('d') => ConversionType::DecInt,
+        Some('u') => ConversionType::DecUInt,
         Some('o') => ConversionType::OctInt,
-        Some('x') => ConversionType::HexIntLower,
-        Some('X') => ConversionType::HexIntUpper,
+        Some('x') => ConversionType::HexUIntLower,
+        Some('X') => ConversionType::HexUIntUpper,
         Some('e') => ConversionType::SciFloatLower,
         Some('E') => ConversionType::SciFloatUpper,
         Some('f') => ConversionType::DecFloatLower,
@@ -188,7 +191,7 @@ fn take_conversion_specifier(s: &str) -> Result<(ConversionSpecifier, &str)> {
         Some('s') | Some('S') => ConversionType::String,
         Some('p') => {
             spec.alt_form = true;
-            ConversionType::HexIntLower
+            ConversionType::HexUIntLower
         }
         Some('%') => ConversionType::PercentSign,
         _ => {

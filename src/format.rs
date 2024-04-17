@@ -23,12 +23,12 @@ impl Printf for u64 {
         let mut alt_prefix = "";
         match spec.conversion_type {
             ConversionType::DecInt => {}
-            ConversionType::HexIntLower => {
+            ConversionType::HexUIntLower => {
                 base = 16;
                 digits = "0123456789abcdef".chars().collect();
                 alt_prefix = "0x";
             }
-            ConversionType::HexIntUpper => {
+            ConversionType::HexUIntUpper => {
                 base = 16;
                 digits = "0123456789ABCDEF".chars().collect();
                 alt_prefix = "0X";
@@ -132,9 +132,9 @@ impl Printf for i64 {
                 Ok(leading_spaces.to_owned() + &sign_prefix + actual_number)
             }
             // unsigned-only formats
-            ConversionType::HexIntLower | ConversionType::HexIntUpper | ConversionType::OctInt => {
-                (*self as u64).format(spec)
-            }
+            ConversionType::HexUIntLower
+            | ConversionType::HexUIntUpper
+            | ConversionType::OctInt => (*self as u64).format(spec),
             _ => Err(PrintfError::WrongType),
         }
     }
@@ -149,9 +149,9 @@ impl Printf for i32 {
             // signed integer format
             ConversionType::DecInt => (*self as i64).format(spec),
             // unsigned-only formats
-            ConversionType::HexIntLower | ConversionType::HexIntUpper | ConversionType::OctInt => {
-                (*self as u32).format(spec)
-            }
+            ConversionType::HexUIntLower
+            | ConversionType::HexUIntUpper
+            | ConversionType::OctInt => (*self as u32).format(spec),
             _ => Err(PrintfError::WrongType),
         }
     }
@@ -175,9 +175,9 @@ impl Printf for i16 {
             // signed integer format
             ConversionType::DecInt => (*self as i64).format(spec),
             // unsigned-only formats
-            ConversionType::HexIntLower | ConversionType::HexIntUpper | ConversionType::OctInt => {
-                (*self as u16).format(spec)
-            }
+            ConversionType::HexUIntLower
+            | ConversionType::HexUIntUpper
+            | ConversionType::OctInt => (*self as u16).format(spec),
             _ => Err(PrintfError::WrongType),
         }
     }
@@ -201,9 +201,9 @@ impl Printf for i8 {
             // signed integer format
             ConversionType::DecInt => (*self as i64).format(spec),
             // unsigned-only formats
-            ConversionType::HexIntLower | ConversionType::HexIntUpper | ConversionType::OctInt => {
-                (*self as u8).format(spec)
-            }
+            ConversionType::HexUIntLower
+            | ConversionType::HexUIntUpper
+            | ConversionType::OctInt => (*self as u8).format(spec),
             _ => Err(PrintfError::WrongType),
         }
     }
