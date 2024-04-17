@@ -33,7 +33,7 @@ impl Printf for u64 {
                 digits = "0123456789ABCDEF".chars().collect();
                 alt_prefix = "0X";
             }
-            ConversionType::OctInt => {
+            ConversionType::OctUInt => {
                 base = 8;
                 digits = "01234567".chars().collect();
                 alt_prefix = "0";
@@ -134,7 +134,7 @@ impl Printf for i64 {
             // unsigned-only formats
             ConversionType::HexUIntLower
             | ConversionType::HexUIntUpper
-            | ConversionType::OctInt => (*self as u64).format(spec),
+            | ConversionType::OctUInt => (*self as u64).format(spec),
             _ => Err(PrintfError::WrongType),
         }
     }
@@ -151,7 +151,7 @@ impl Printf for i32 {
             // unsigned-only formats
             ConversionType::HexUIntLower
             | ConversionType::HexUIntUpper
-            | ConversionType::OctInt => (*self as u32).format(spec),
+            | ConversionType::OctUInt => (*self as u32).format(spec),
             _ => Err(PrintfError::WrongType),
         }
     }
@@ -177,7 +177,7 @@ impl Printf for i16 {
             // unsigned-only formats
             ConversionType::HexUIntLower
             | ConversionType::HexUIntUpper
-            | ConversionType::OctInt => (*self as u16).format(spec),
+            | ConversionType::OctUInt => (*self as u16).format(spec),
             _ => Err(PrintfError::WrongType),
         }
     }
@@ -203,7 +203,7 @@ impl Printf for i8 {
             // unsigned-only formats
             ConversionType::HexUIntLower
             | ConversionType::HexUIntUpper
-            | ConversionType::OctInt => (*self as u8).format(spec),
+            | ConversionType::OctUInt => (*self as u8).format(spec),
             _ => Err(PrintfError::WrongType),
         }
     }

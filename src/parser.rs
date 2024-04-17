@@ -51,7 +51,7 @@ pub enum ConversionType {
     /// `d`, `i`
     DecInt,
     /// `o`
-    OctInt,
+    OctUInt,
     /// u
     DecUInt,
     /// `x` or `p`
@@ -178,7 +178,7 @@ fn take_conversion_specifier(s: &str) -> Result<(ConversionSpecifier, &str)> {
     spec.conversion_type = match s.chars().next() {
         Some('i') | Some('d') => ConversionType::DecInt,
         Some('u') => ConversionType::DecUInt,
-        Some('o') => ConversionType::OctInt,
+        Some('o') => ConversionType::OctUInt,
         Some('x') => ConversionType::HexUIntLower,
         Some('X') => ConversionType::HexUIntUpper,
         Some('e') => ConversionType::SciFloatLower,
