@@ -22,7 +22,7 @@ impl Printf for u64 {
         let mut digits: Vec<char> = "0123456789".chars().collect();
         let mut alt_prefix = "";
         match spec.conversion_type {
-            ConversionType::DecInt => {}
+            ConversionType::DecInt | ConversionType::DecUInt=> {}
             ConversionType::HexUIntLower => {
                 base = 16;
                 digits = "0123456789abcdef".chars().collect();
@@ -134,7 +134,8 @@ impl Printf for i64 {
             // unsigned-only formats
             ConversionType::HexUIntLower
             | ConversionType::HexUIntUpper
-            | ConversionType::OctUInt => (*self as u64).format(spec),
+            | ConversionType::OctUInt
+            | ConversionType::DecUInt => (*self as u64).format(spec),
             _ => Err(PrintfError::WrongType),
         }
     }
@@ -151,7 +152,8 @@ impl Printf for i32 {
             // unsigned-only formats
             ConversionType::HexUIntLower
             | ConversionType::HexUIntUpper
-            | ConversionType::OctUInt => (*self as u32).format(spec),
+            | ConversionType::OctUInt
+            | ConversionType::DecUInt => (*self as u32).format(spec),
             _ => Err(PrintfError::WrongType),
         }
     }
@@ -177,7 +179,8 @@ impl Printf for i16 {
             // unsigned-only formats
             ConversionType::HexUIntLower
             | ConversionType::HexUIntUpper
-            | ConversionType::OctUInt => (*self as u16).format(spec),
+            | ConversionType::OctUInt
+            | ConversionType::DecUInt => (*self as u16).format(spec),
             _ => Err(PrintfError::WrongType),
         }
     }
@@ -203,7 +206,8 @@ impl Printf for i8 {
             // unsigned-only formats
             ConversionType::HexUIntLower
             | ConversionType::HexUIntUpper
-            | ConversionType::OctUInt => (*self as u8).format(spec),
+            | ConversionType::OctUInt
+            | ConversionType::DecUInt => (*self as u8).format(spec),
             _ => Err(PrintfError::WrongType),
         }
     }
